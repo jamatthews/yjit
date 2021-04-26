@@ -309,6 +309,9 @@ yjit_entry_prologue(void)
     push(cb, R15);
     push(cb, R15);
 
+    mov(cb, R14, RDI);
+    mov(cb, R15, RSI);
+
     return code_ptr;
 }
 

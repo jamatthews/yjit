@@ -6,7 +6,7 @@
 
 // Register YJIT receives the CFP and EC into
 #define REG_CFP RDI
-#define REG_EC RSI
+#define REG_EC R15
 
 // Register YJIT loads the SP into
 #define REG_SP R13
