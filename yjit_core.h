@@ -9,7 +9,7 @@
 #define REG_EC RSI
 
 // Register YJIT loads the SP into
-#define REG_SP RDX
+#define REG_SP R13
 
 // Scratch registers used by YJIT
 #define REG0 RAX
