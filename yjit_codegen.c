@@ -175,18 +175,18 @@ static void
 yjit_save_regs(codeblock_t* cb)
 {
     push(cb, REG_CFP);
-    push(cb, REG_EC);
-    push(cb, REG_SP);
-    push(cb, REG_SP); // Maintain 16-byte RSP alignment
+    push(cb, REG_CFP);
+    push(cb, REG_CFP);
+    push(cb, REG_CFP); // Maintain 16-byte RSP alignment
 }
 
 // Restore YJIT registers after a C call
 static void
 yjit_load_regs(codeblock_t* cb)
 {
-    pop(cb, REG_SP); // Maintain 16-byte RSP alignment
-    pop(cb, REG_SP);
-    pop(cb, REG_EC);
+    pop(cb, REG_CFP); // Maintain 16-byte RSP alignment
+    pop(cb, REG_CFP);
+    pop(cb, REG_CFP);
     pop(cb, REG_CFP);
 }
 
