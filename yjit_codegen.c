@@ -235,7 +235,10 @@ yjit_gen_exit(jitstate_t *jit, ctx_t *ctx, codeblock_t *cb)
         call_ptr(cb, RSI, (void *)&rb_yjit_count_side_exit_op);
     }
 #endif
-
+    pop(cb, R15);
+    pop(cb, R15);
+    pop(cb, R14);
+    pop(cb, R13);
     cb_write_post_call_bytes(cb);
 
     return code_ptr;
@@ -256,6 +259,10 @@ yjit_gen_leave_exit(codeblock_t *cb)
     // Put PC into the return register, which the post call bytes dispatches to
     mov(cb, RAX, member_opnd(REG_CFP, rb_control_frame_t, pc));
 
+    pop(cb, R15);
+    pop(cb, R15);
+    pop(cb, R14);
+    pop(cb, R13);
     cb_write_post_call_bytes(cb);
 
     return code_ptr;
@@ -296,6 +303,11 @@ yjit_entry_prologue(void)
     // TODO: this could use an IP relative LEA instead of an 8 byte immediate
     mov(cb, REG0, const_ptr_opnd(leave_exit_code));
     mov(cb, member_opnd(REG_CFP, rb_control_frame_t, jit_return), REG0);
+
+    push(cb, R13);
+    push(cb, R14);
+    push(cb, R15);
+    push(cb, R15);
 
     return code_ptr;
 }
